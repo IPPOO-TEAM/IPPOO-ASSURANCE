@@ -832,8 +832,8 @@ app.get(`${PREFIX}/ping`, (c) => c.text("pong", 200, { "Cache-Control": "no-stor
 app.post(`${PREFIX}/signup`, async (c) => {
   try {
     const ip = c.req.header("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
-    const allowed = await rateLimit(`signup:${ip}`, 5, 600);
-    if (!allowed) return c.json({ error: "Trop de tentatives, réessayez dans 10 min." }, 429);
+    const allowed = await rateLimit(`signup:${ip}`, 20, 1800);
+    if (!allowed) return c.json({ error: "Trop de tentatives, réessayez dans 30 min." }, 429);
     const parsed = await parseBody(c, SignupSchema);
     if (!parsed.ok) return c.json({ error: parsed.message }, parsed.status);
     const { email, password, name, phone, referralCode, enrollerMatricule, profile: profileDetails } = parsed.data;
@@ -841,7 +841,7 @@ app.post(`${PREFIX}/signup`, async (c) => {
     // pour le même email — bloque les attaques d'énumération distribuées.
     const emailKey = (email ?? "").toLowerCase().trim();
     if (emailKey) {
-      const okEmail = await rateLimit(`signup-email:${emailKey}`, 3, 3600);
+      const okEmail = await rateLimit(`signup-email:${emailKey}`, 10, 3600);
       if (!okEmail) return c.json({ error: "Trop de tentatives pour cet email, réessayez plus tard." }, 429);
     }
     // Résout le matricule conseiller en uid via la sentinelle ; ignore
