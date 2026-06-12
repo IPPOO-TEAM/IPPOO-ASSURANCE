@@ -11,7 +11,7 @@ function figmaAssetResolver() {
     resolveId(id) {
       if (id.startsWith('figma:asset/')) {
         const filename = id.replace('figma:asset/', '')
-        return path.resolve(__dirname, 'src/assets', filename)
+        return path.resolve(__dirname, 'Front End/assets', filename)
       }
     },
   }
@@ -26,7 +26,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       strategies: 'injectManifest',
-      srcDir: 'src',
+      srcDir: 'Front End',
       filename: 'sw.ts',
       registerType: 'autoUpdate',
       injectRegister: 'auto',
@@ -68,7 +68,7 @@ export default defineConfig({
   resolve: {
     alias: {
       // Alias @ to the src directory
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './Front End'),
     },
   },
 
