@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+jspm_packages
+
+# Build outputs
+dist
+dist-ssr
+out
+.svelte-kit
+.next
+.nuxt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.ntvsce
+*.njsproj
+*.sln
+*.sw?
+
+# Local env files (Secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Deployment scripts & temporary artifacts
+deploy-index-commands.txt
+deploy-to-vps.ps1
+bundle.cjs
+.gemini/
